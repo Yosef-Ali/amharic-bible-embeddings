@@ -59,4 +59,4 @@ logs/
 
 # Temporary files
 tmp/
-temp/
+temp/data/embeddings/*.jsonl
