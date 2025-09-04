@@ -21,6 +21,11 @@ try:
 except ImportError:
     openai = None
 
+try:
+    import httpx
+except ImportError:
+    httpx = None
+
 class BaseLLMClient(ABC):
     """Base class for LLM clients"""
     
@@ -115,11 +120,50 @@ class DeepSeekClient(BaseLLMClient):
     def is_available(self) -> bool:
         return self.client is not None
 
+class OpenRouterClient(BaseLLMClient):
+    """OpenRouter API client supporting multiple models"""
+    
+    def __init__(self, api_key: Optional[str] = None, api_url: Optional[str] = None):
+        self.api_key = api_key or os.getenv("OPENROUTER_API_KEY")
+        self.api_url = api_url or os.getenv("OPENROUTER_API_URL", "https://openrouter.ai/api/v1/chat/completions")
+        self.available = bool(self.api_key and httpx)
+    
+    async def generate_context(self, text: str, prompt_template: str) -> str:
+        if not self.available:
+            raise ValueError("OpenRouter client not properly configured")
+        
+        prompt = prompt_template.format(text=text)
+        
+        headers = {
+            "Authorization": f"Bearer {self.api_key}",
+            "Content-Type": "application/json",
+            "HTTP-Referer": "https://github.com/Yosef-Ali/amharic-bible-embeddings",
+            "X-Title": "Amharic Bible Embeddings"
+        }
+        
+        payload = {
+            "model": "anthropic/claude-3-sonnet",  # Can use any OpenRouter model
+            "messages": [{"role": "user", "content": prompt}],
+            "max_tokens": 1000,
+            "temperature": 0.1
+        }
+        
+        async with httpx.AsyncClient() as client:
+            response = await client.post(self.api_url, json=payload, headers=headers, timeout=30.0)
+            response.raise_for_status()
+            result = response.json()
+            
+            return result["choices"][0]["message"]["content"] if result.get("choices") else ""
+    
+    def is_available(self) -> bool:
+        return self.available
+
 class LLMManager:
     """Manages multiple LLM clients and provides fallback options"""
     
-    def __init__(self, preferred_llm: str = "claude"):
+    def __init__(self, preferred_llm: str = "openrouter"):
         self.clients: Dict[str, BaseLLMClient] = {
+            "openrouter": OpenRouterClient(),
             "claude": ClaudeClient(),
             "gemini": GeminiClient(),
             "deepseek": DeepSeekClient()
