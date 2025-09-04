@@ -27,12 +27,18 @@ pip install -r requirements.txt
 cp .env.example .env
 ```
 
-Edit `.env` and add your API keys:
+Edit `.env` and add your API keys (at least one required):
 ```
-ANTHROPIC_API_KEY=your_claude_api_key
-GOOGLE_API_KEY=your_gemini_api_key
-DEEPSEEK_API_KEY=your_deepseek_api_key
+# Choose one or more LLM providers:
+GEMINI_API_KEY=your_gemini_api_key_here
+DEEPSEEK_API_KEY=your_deepseek_api_key_here
+OPENROUTER_API_KEY=your_openrouter_api_key_here
+
+# Optional: Alternative providers
+ANTHROPIC_API_KEY=your_claude_api_key_here
 ```
+
+**Recommended**: Use OpenRouter for access to multiple models including Claude 3
 
 ### 3. Add Bible Data
 
