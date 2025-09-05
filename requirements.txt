@@ -1,24 +1,5 @@
-# Local processing only
-sentence-transformers==2.7.0
-torch>=2.0.0
-numpy==1.24.3
-pandas==2.0.3
-
-# Calendar calculations
-python-dateutil==2.9.0
-pytz==2024.1
-hijri-converter==2.2.4  # For calendar conversions
-
-# Web interface
-streamlit==1.28.0
-plotly==5.17.0
-
-# Data processing
-jsonlines==4.0.0
-python-dotenv==1.0.0
-
-# Ethiopian calendar support
-convertdate==2.4.0  # Includes Ethiopian calendar
-
-# Testing
-pytest==7.4.0
+requests>=2.31.0
+beautifulsoup4>=4.12.0
+python-dateutil>=2.8.0
+dataclasses-json>=0.6.0
+lxml>=4.9.0
