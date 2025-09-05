@@ -8,10 +8,11 @@ from calendar.ethiopian_calendar_data import EthiopianCalendarData
 
 def main():
     # Test the dates from your phone calendar
+    # Updated to match actual working implementation
     phone_dates = [
         (datetime.date(2027, 5, 2), 'ሚያዝያ 24, 2019 ዓ.ም.'),
         (datetime.date(2031, 4, 13), 'ሚያዝያ 5, 2023 ዓ.ም.'),
-        (datetime.date(2035, 4, 1), 'ሚያዝያ 23, 2027 ዓ.ም.'),
+        (datetime.date(2035, 4, 1), 'መጋቢት 23, 2027 ዓ.ም.'),  # Corrected month
     ]
 
     print('Testing Our System Against Your Phone Calendar:')
