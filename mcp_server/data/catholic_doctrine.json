@@ -1,0 +1,73 @@
+{
+  "catechism_topics": {
+    "trinity": {
+      "amharic": "በካቶሊክ እምነት መሰረት፣ እግዚአብሔር አንድ ሆኖ በሶስት ግለሰቦች ይገለጣል፦ አብ፣ ወልድ እና መንፈስ ቅዱስ። ይህ የሶስትነት እምነት የክርስትና እምነት መሰረት ነው። አብ የሁሉ መነሻ፣ ወልድ የአብ እውነተኛ ልጅ፣ መንፈስ ቅዱስ ደግሞ ከአብ እና ከወልድ የሚወጣ ነው።",
+      "english": "In Catholic teaching, God is one but exists in three distinct persons: Father, Son, and Holy Spirit. This Trinity is the central mystery of Christian faith. The Father is the source, the Son is the true child of the Father, and the Holy Spirit proceeds from both Father and Son.",
+      "ccc_references": ["CCC 232-267"],
+      "biblical_foundation": ["Matthew 28:19", "2 Corinthians 13:14", "1 John 5:7"]
+    },
+    "salvation": {
+      "amharic": "መዃን በኢየሱስ ክርስቶስ አማካይነት የሚገኝ የእግዚአብሔር ነጻ ስጦታ ነው። በእምነት፣ በመጥምቅ እና በመልካም ሥራ ይገኛል። የእግዚአብሔር ጸጋ ሰውን ከኃጢአት ነጻ አውጥቶ ለዘላለም ሕይወት ያበቃዋል።",
+      "english": "Salvation is God's free gift obtained through Jesus Christ. It comes through faith, baptism, and good works. God's grace frees humans from sin and leads to eternal life.",
+      "ccc_references": ["CCC 1987-2029"],
+      "biblical_foundation": ["Ephesians 2:8-9", "Romans 6:23", "Acts 2:38"]
+    },
+    "mary": {
+      "amharic": "እመቤታችን ማርያም የእግዚአብሔር እናት፣ ሁሌም ድንግል እና የሰማይ ንግሥት ናት። ኃጢአት ሳትሆን የተወለደች (ንጽሐና ርምሮት) እና ወደ ሰማይ በሥጋዋ የተወሰደች (መነሳሳት) ነች። ለቅዱሳን ምልዓተ እናት እና የእኛ መካች ናት።",
+      "english": "Our Lady Mary is the Mother of God, ever-virgin, and Queen of Heaven. She was conceived without sin (Immaculate Conception) and assumed into heaven body and soul (Assumption). She is Mother of all saints and our intercessor.",
+      "ccc_references": ["CCC 484-511", "CCC 963-975"],
+      "biblical_foundation": ["Luke 1:26-38", "Luke 1:46-55", "John 19:26-27"]
+    },
+    "mass": {
+      "amharic": "ቅዳሴ የኢየሱስ ክርስቶስ መስዋእት በእንጀራ እና በወይን መልክ እንደገና የሚቀርብበት ቅዱስ ሥነ ሥርዓት ነው። በቅዳሴ ወቅት እንጀራ እና ወይን በእውነት ወደ የክርስቶስ ሥጋ እና ደም ይለወጣሉ (ትራንሰብስታንሺዮን)።",
+      "english": "The Mass is the sacred liturgy where Christ's sacrifice is re-presented through bread and wine. During Mass, bread and wine truly become the Body and Blood of Christ (Transubstantiation).",
+      "ccc_references": ["CCC 1322-1419"],
+      "biblical_foundation": ["Matthew 26:26-28", "1 Corinthians 11:23-26", "John 6:51-58"]
+    },
+    "sacraments": {
+      "amharic": "በካቶሊክ ቤተክርስቲያን ሰባት ቅዱሳት ምስጢራት አሉ፦ መጥምቅ (ኃጢአት ያጠብሳል)፣ ማረጋገጫ (መንፈስ ቅዱስን ይሰጣል)፣ ቅዳሴ (የክርስቶስ ሥጋና ደም)፣ መንፈሳዊ መፈወስ (ንሥሐ)፣ በሽተኛ ዘይት፣ ቅዱስ ትዳር እና ቅዱስ ስልጣን።",
+      "english": "The Catholic Church has seven sacraments: Baptism (cleanses sin), Confirmation (gifts of Holy Spirit), Eucharist (Body and Blood of Christ), Reconciliation (confession), Anointing of the Sick, Matrimony, and Holy Orders.",
+      "ccc_references": ["CCC 1113-1666"],
+      "biblical_foundation": ["Romans 6:3-4", "Acts 8:14-17", "Luke 22:19-20"]
+    },
+    "prayer": {
+      "amharic": "ጸሎት ከእግዚአብሔር ጋር የሚደረግ ንግግር ነው። የሮዛሪዮ ጸሎት፣ የአባታችን፣ የሰላምታ ማርያም እና የክብር ለአብ ዋና ዋና የካቶሊክ ጸሎቶች ናቸው። ጸሎት በአንደኛ ወንድም መንፈስ፣ በመልእከ ጸሎት እና በግንዛቤ ይከፈላል።",
+      "english": "Prayer is conversation with God. The Rosary, Our Father, Hail Mary, and Glory Be are fundamental Catholic prayers. Prayer includes vocal prayer, meditation, and contemplation.",
+      "ccc_references": ["CCC 2558-2758"],
+      "biblical_foundation": ["Matthew 6:9-13", "Luke 11:2-4", "1 Thessalonians 5:17"]
+    },
+    "pope": {
+      "amharic": "ጳጳሱ የቅዱስ ጴጥሮስ ተተኪ እና የአለም አቀፍ ካቶሊክ ቤተክርስቲያን ራስ ነው። በእምነት እና ምግባር ጉዳዮች ላይ የማይሳሳት ውሳኔ (ኢንፋሊቢሊቲ) ይሰጣል። የቤተክርስቲያን አንድነት ምልክት እና መሪ ነው።",
+      "english": "The Pope is the successor of St. Peter and head of the universal Catholic Church. He has infallibility in matters of faith and morals. He is the sign and leader of Church unity.",
+      "ccc_references": ["CCC 880-887"],
+      "biblical_foundation": ["Matthew 16:18-19", "John 21:15-17", "Luke 22:32"]
+    },
+    "saints": {
+      "amharic": "ቅዱሳን በሰማይ ያሉ እና ለእኛ የሚመልሱልን የእግዚአብሔር ወዳጆች ናቸው። እነሱ በምድር ላይ በቅድስና የኖሩ እና አሁን በእግዚአብሔር ፊት ያሉ ናቸው። ቅዱሳንን ማክበር እና ምልከታቸውን መጠየቅ የካቶሊክ ባህል ነው።",
+      "english": "Saints are God's friends in heaven who intercede for us. They lived holy lives on earth and are now with God. Venerating saints and asking for their intercession is Catholic tradition.",
+      "ccc_references": ["CCC 954-962", "CCC 2683-2684"],
+      "biblical_foundation": ["Hebrews 12:1", "Revelation 8:3-4", "James 5:16"]
+    }
+  },
+  "papal_teachings": {
+    "pope_francis": {
+      "laudato_si": {
+        "title": "ላውዳቶ ሲ - ስለ የጋራ ቤታችን እንክብካቤ",
+        "summary": "ስለ ፓርያ እና የአካባቢ ጥበቃ የሆነ ፊላንትራንሲስ ኤንሳይክሊካል",
+        "key_themes": ["የአካባቢ ጥበቃ", "ማህበራዊ ፍትሕ", "የዳሪድሮች እንክብካቤ"]
+      },
+      "fratelli_tutti": {
+        "title": "ፍራቴሊ ቱቲ - ስለ ወንድማማችነት እና ማህበራዊ ወዳጅነት",
+        "summary": "ስለ አለም አቀፍ ወንድማማችነት እና ማህበራዊ ፍቅር",
+        "key_themes": ["ወንድማማችነት", "ማህበራዊ ፍትሕ", "ፖለቲካዊ ፍቅር"]
+      }
+    }
+  },
+  "church_documents": {
+    "vatican_ii": {
+      "lumen_gentium": "ስለ ቤተክርስቲያን - ቤተክርስቲያን የእግዚአብሔር ሕዝብ ናት",
+      "dei_verbum": "ስለ መለኮታዊ ራሻ - መጽሐፍ ቅዱስ እና ጸንቶ የመጣ ወግ",
+      "sacrosanctum_concilium": "ስለ ቅድስት ሊቱርጊያ - የመተፈሪ ወርቁ እድሳት"
+    }
+  }
+}
