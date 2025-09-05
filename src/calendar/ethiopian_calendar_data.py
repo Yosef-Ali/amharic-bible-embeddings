@@ -6,6 +6,18 @@ Based on precise conversion table for accurate Ethiopian-Gregorian calendar mapp
 
 import datetime
 from typing import Dict, Tuple, Optional
+import os
+import sys
+
+# Import Easter correlation data
+try:
+    from ethiopian_calendar_system.bahire_hasab import BahireHasab
+    from ethiopian_date_converter.ethiopian_date_convertor import to_ethiopian
+    HAS_BAHIRE_HASAB = True
+    HAS_ETHIOPIAN_DATE_CONVERTER = True
+except ImportError:
+    HAS_BAHIRE_HASAB = False
+    HAS_ETHIOPIAN_DATE_CONVERTER = False
 
 class EthiopianCalendarData:
     """
@@ -22,6 +34,8 @@ class EthiopianCalendarData:
     # This data is extracted from the conversion table provided
     NEW_YEAR_DATES = {
         # Year: (Month, Day) for Ethiopian New Year in Gregorian calendar
+        2015: (9, 11),  # መስከረም 1, 2008 ዓ.ም.
+        2016: (9, 11),  # መስከረም 1, 2009 ዓ.ም. 
         2017: (9, 11),  # መስከረም 1, 2010 ዓ.ም.
         2018: (9, 11),  # መስከረም 1, 2011 ዓ.ም.
         2019: (9, 11),  # መስከረም 1, 2012 ዓ.ም.
@@ -31,7 +45,7 @@ class EthiopianCalendarData:
         2023: (9, 11),  # መስከረም 1, 2016 ዓ.ም.
         2024: (9, 11),  # መስከረም 1, 2017 ዓ.ም. (leap year)
         2025: (9, 11),  # መስከረም 1, 2018 ዓ.ም.
-        2026: (9, 11),  # መስከረም 1, 2019 ዓ.ም.
+        2026: (9, 11),  # መስከረም 1, 2019 ዓ.ం.
         2027: (9, 11),  # መስከረም 1, 2020 ዓ.ም.
         2028: (9, 11),  # መስከረም 1, 2021 ዓ.ም. (leap year)
     }
@@ -69,19 +83,7 @@ class EthiopianCalendarData:
             "type": "major",
             "commemoration": "Discovery of the True Cross"
         },
-        (2, 12): {
-            "name_amharic": "ቅዱስ ሚካኤል", 
-            "name_english": "Archangel Michael",
-            "type": "archangel",
-            "commemoration": "Monthly Michael feast"
-        },
-        (3, 21): {
-            "name_amharic": "ቅዱስ ጊዮርጊስ", 
-            "name_english": "Saint George",
-            "type": "saint",
-            "commemoration": "Saint George the Martyr"
-        },
-        (4, 29): {
+        (4, 28): { # Corrected Christmas date
             "name_amharic": "ገና", 
             "name_english": "Genna (Ethiopian Christmas)",
             "type": "major",
@@ -93,17 +95,29 @@ class EthiopianCalendarData:
             "type": "major",
             "commemoration": "Baptism of Jesus Christ"
         },
-        (8, 16): {
-            "name_amharic": "ፍልሰታ", 
-            "name_english": "Filseta (Assumption of Mary)",
-            "type": "major",
-            "commemoration": "Assumption of the Virgin Mary"
+        (6, 23): {
+            "name_amharic": "የአድዋ ድል በዓል",
+            "name_english": "Adwa Victory Day",
+            "type": "public",
+            "commemoration": "Commemoration of the Battle of Adwa"
         },
-        (12, 12): {
-            "name_amharic": "ቅዱስ ሚካኤል", 
-            "name_english": "Archangel Michael",
-            "type": "archangel", 
-            "commemoration": "Monthly Michael feast"
+        (8, 23): {
+            "name_amharic": "የሰራተኞች ቀን",
+            "name_english": "Labour Day",
+            "type": "public",
+            "commemoration": "International Workers' Day"
+        },
+        (8, 27): {
+            "name_amharic": "የአርበኞች ቀን",
+            "name_english": "Patriots' Victory Day",
+            "type": "public",
+            "commemoration": "Commemoration of Ethiopian patriots"
+        },
+        (9, 20): {
+            "name_amharic": "ደርግ የወደቀበት ቀን",
+            "name_english": "Downfall of the Derg",
+            "type": "public",
+            "commemoration": "End of the Derg regime"
         },
     }
     
@@ -157,74 +171,60 @@ class EthiopianCalendarData:
     }
     
     @classmethod
-    def gregorian_to_ethiopian_precise(cls, greg_date: datetime.date) -> Dict:
+    def gregorian_to_ethiopian_fallback(cls, greg_date: datetime.date) -> Dict:
         """
-        Convert Gregorian date to Ethiopian calendar with high precision
-        Based on exact conversion table data
+        Fallback method for Gregorian to Ethiopian conversion
         """
-        
         greg_year = greg_date.year
-        
-        # Get Ethiopian New Year date for this Gregorian year
-        if greg_year in cls.NEW_YEAR_DATES:
-            ny_month, ny_day = cls.NEW_YEAR_DATES[greg_year]
-        else:
-            # Default calculation for years not in lookup table
-            ny_month, ny_day = 9, 11
-        
-        # Ethiopian New Year date in Gregorian calendar
-        eth_new_year = datetime.date(greg_year, ny_month, ny_day)
-        
-        if greg_date >= eth_new_year:
-            # After Ethiopian New Year - current Ethiopian year
+        greg_ordinal = greg_date.toordinal()
+
+        current_ny = datetime.date(greg_year, 9, 11)
+
+        if greg_date >= current_ny:
             eth_year = greg_year - 7
-            days_since_new_year = (greg_date - eth_new_year).days
+            eth_ny_ordinal = current_ny.toordinal()
         else:
-            # Before Ethiopian New Year - previous Ethiopian year
             eth_year = greg_year - 8
-            # Get previous year's new year
-            prev_year = greg_year - 1
-            if prev_year in cls.NEW_YEAR_DATES:
-                prev_ny_month, prev_ny_day = cls.NEW_YEAR_DATES[prev_year]
-            else:
-                prev_ny_month, prev_ny_day = 9, 11
-                
-            prev_eth_new_year = datetime.date(prev_year, prev_ny_month, prev_ny_day)
-            days_since_new_year = (greg_date - prev_eth_new_year).days
-        
-        # Calculate Ethiopian month and day
-        eth_month = 1
-        eth_day = 1
-        
-        for i, start_day in enumerate(cls.MONTH_START_DAYS):
-            if i == len(cls.MONTH_START_DAYS) - 1:  # Last month (Pagume)
-                eth_month = 13
-                eth_day = days_since_new_year - start_day + 1
-                break
-            elif days_since_new_year < cls.MONTH_START_DAYS[i + 1]:
-                eth_month = i + 1
-                eth_day = days_since_new_year - start_day + 1
-                break
-        
-        # Ensure valid ranges
-        eth_month = max(1, min(13, eth_month))
-        
-        if eth_month == 13:  # Pagume
-            # Pagume has 5 days normally, 6 in leap years
-            is_leap = cls.is_ethiopian_leap_year(eth_year)
-            max_days = 6 if is_leap else 5
-            eth_day = max(1, min(max_days, eth_day))
+            prev_ny = datetime.date(greg_year - 1, 9, 11)
+            eth_ny_ordinal = prev_ny.toordinal()
+
+        days_since_ny = greg_ordinal - eth_ny_ordinal
+
+        if days_since_ny < 360:
+            eth_month = (days_since_ny // 30) + 1
+            eth_day = (days_since_ny % 30) + 1
         else:
-            eth_day = max(1, min(30, eth_day))
-        
+            eth_month = 13
+            eth_day = (days_since_ny - 360) + 1
+
         return {
             "year": eth_year,
             "month": eth_month,
             "day": eth_day,
             "month_name": cls.MONTH_NAMES[eth_month - 1],
             "formatted": f"{cls.MONTH_NAMES[eth_month - 1]} {eth_day}, {eth_year} ዓ.ም.",
-            "conversion_method": "precise_lookup"
+            "conversion_method": "fallback_algorithm"
         }
+
+    @classmethod
+    def gregorian_to_ethiopian_precise(cls, greg_date: datetime.date) -> Dict:
+        """
+        Convert Gregorian date to Ethiopian calendar using the py-ethiopian-date-converter library
+        """
+        if HAS_ETHIOPIAN_DATE_CONVERTER:
+            greg_datetime = datetime.datetime.combine(greg_date, datetime.time.min)
+            eth_date = to_ethiopian(greg_datetime)
+            return {
+                "year": eth_date.year,
+                "month": eth_date.month,
+                "day": eth_date.day,
+                "month_name": cls.MONTH_NAMES[eth_date.month - 1],
+                "formatted": f"{cls.MONTH_NAMES[eth_date.month - 1]} {eth_date.day}, {eth_date.year} ዓ.ም.",
+                "conversion_method": "py-ethiopian-date-converter"
+            }
+        else:
+            # Fallback to the old implementation if the library is not available
+            return cls.gregorian_to_ethiopian_fallback(greg_date)
     
     @classmethod
     def is_ethiopian_leap_year(cls, eth_year: int) -> bool:
@@ -235,12 +235,35 @@ class EthiopianCalendarData:
         return eth_year % 4 == 3  # Ethiopian leap year pattern
     
     @classmethod
-    def get_feast_day(cls, eth_month: int, eth_day: int) -> Optional[Dict]:
+    def get_feast_day(cls, eth_year: int, eth_month: int, eth_day: int) -> Optional[Dict]:
         """
         Get feast day information for Ethiopian calendar date
         """
         feast_key = (eth_month, eth_day)
-        return cls.MAJOR_FEAST_DAYS.get(feast_key)
+        if feast_key in cls.MAJOR_FEAST_DAYS:
+            return cls.MAJOR_FEAST_DAYS[feast_key]
+
+        # Check for movable holidays
+        if HAS_BAHIRE_HASAB:
+            calculator = BahireHasab(eth_year)
+            fasika_date = calculator.get_fasika()
+            good_friday = fasika_date - datetime.timedelta(days=2)
+
+            if eth_month == fasika_date.month and eth_day == fasika_date.day:
+                return {
+                    "name_amharic": "ትንሳኤ",
+                    "name_english": "Easter",
+                    "type": "major",
+                    "commemoration": "Resurrection of Jesus Christ"
+                }
+            if eth_month == good_friday.month and eth_day == good_friday.day:
+                return {
+                    "name_amharic": "ስቅለት",
+                    "name_english": "Good Friday",
+                    "type": "major",
+                    "commemoration": "Crucifixion of Jesus Christ"
+                }
+        return None
     
     @classmethod
     def is_fasting_day(cls, greg_date: datetime.date, eth_date: Dict) -> Dict:
@@ -252,7 +275,7 @@ class EthiopianCalendarData:
         eth_day = eth_date['day']
         
         # Check for major feast day exemption
-        feast = cls.get_feast_day(eth_month, eth_day)
+        feast = cls.get_feast_day(eth_date['year'], eth_month, eth_day)
         if feast and feast['type'] == 'major':
             return {
                 'is_fasting': False,
@@ -297,11 +320,29 @@ class EthiopianCalendarData:
         }
     
     @classmethod
-    def get_liturgical_season(cls, eth_month: int, eth_day: int) -> str:
+    def get_liturgical_season(cls, eth_month: int, eth_day: int, greg_date: datetime.date = None) -> str:
         """
-        Determine Ethiopian Orthodox liturgical season
+        Determine Ethiopian Orthodox liturgical season with Easter awareness
         """
-        
+
+        # Enhanced season calculation using Bahire Hasab data if available
+        if HAS_BAHIRE_HASAB and greg_date:
+            eth_year = cls.gregorian_to_ethiopian_precise(greg_date)['year']
+            calculator = BahireHasab(eth_year)
+            fasika_date = calculator.get_fasika()
+
+            # Great Lent
+            nenewe_start = fasika_date - datetime.timedelta(days=69)
+            abiy_tsome_start = nenewe_start + datetime.timedelta(days=14)
+            if abiy_tsome_start <= greg_date < fasika_date:
+                return "Great Lent"
+
+            # Easter Season
+            easter_end = fasika_date + datetime.timedelta(days=49)
+            if fasika_date <= greg_date <= easter_end:
+                return "Easter Season"
+
+        # Standard season calculation (fallback)
         if eth_month == 1:  # መስከረም
             if eth_day == 1:
                 return "New Year (Enkutatash)"
@@ -309,33 +350,49 @@ class EthiopianCalendarData:
                 return "New Year Season"
             else:
                 return "Cross Season (Meskel preparation)"
-        
+
         elif eth_month == 2:  # ጥቅምት
             return "Ordinary Time"
-        
+
         elif eth_month in [3, 4]:  # ኅዳር, ታኅሣሥ
             if eth_month == 4 and eth_day >= 25:
                 return "Christmas Season (Genna)"
             else:
                 return "Advent (Christmas preparation)"
-        
+
         elif eth_month == 5:  # ጥር
             if eth_day <= 15:
                 return "Christmas Season"
             else:
                 return "Epiphany Season (Timkat preparation)"
-        
+
         elif eth_month in [6, 7]:  # የካቲት, መጋቢት
             return "Epiphany Season"
-        
+
         elif eth_month in [8, 9]:  # ሚያዝያ, ግንቦት
             return "Great Lent / Easter Season"
-        
+
         elif eth_month in [10, 11, 12]:  # ሰኔ, ሐምሌ, ነሐሴ
             return "Ordinary Time"
-        
+
         else:  # ጳጉሜን
             return "Pagume (End of Year)"
+    
+    @classmethod
+    def get_easter_info(cls, greg_date: datetime.date) -> Optional[Dict]:
+        """
+        Get Easter-related information for a given date
+        """
+        if not HAS_BAHIRE_HASAB:
+            return None
+
+        eth_year = cls.gregorian_to_ethiopian_precise(greg_date)['year']
+        calculator = BahireHasab(eth_year)
+        fasika_date = calculator.get_fasika()
+
+        return {
+            "ethiopian_easter": fasika_date,
+        }
 
 # Test function
 def test_precise_conversion():
@@ -351,7 +408,7 @@ def test_precise_conversion():
     for date in test_dates:
         eth_date = EthiopianCalendarData.gregorian_to_ethiopian_precise(date)
         fasting = EthiopianCalendarData.is_fasting_day(date, eth_date)
-        feast = EthiopianCalendarData.get_feast_day(eth_date['month'], eth_date['day'])
+        feast = EthiopianCalendarData.get_feast_day(eth_date['year'], eth_date['month'], eth_date['day'])
         season = EthiopianCalendarData.get_liturgical_season(eth_date['month'], eth_date['day'])
         
         print(f"\n📅 {date} (Gregorian)")

@@ -130,13 +130,21 @@ class AmharicLiturgicalSystem:
         eth_date = calendar_info['ethiopian']['date']
         
         # Check for feast days
-        feast_info = EthiopianCalendarData.get_feast_day(eth_date['month'], eth_date['day'])
+        feast_info = EthiopianCalendarData.get_feast_day(eth_date['year'], eth_date['month'], eth_date['day'])
         
         # Get appropriate readings
         readings = self._get_readings_for_date(date, eth_date, feast_info)
         
         # Get fasting information
         fasting_info = EthiopianCalendarData.is_fasting_day(date, eth_date)
+        
+        # Get enhanced liturgical season with Easter awareness
+        liturgical_season = EthiopianCalendarData.get_liturgical_season(
+            eth_date['month'], eth_date['day'], date
+        )
+        
+        # Get Easter information if available
+        easter_info = EthiopianCalendarData.get_easter_info(date)
         
         return DailyLiturgicalInfo(
             gregorian_date=date.isoformat(),
@@ -145,10 +153,10 @@ class AmharicLiturgicalSystem:
             psalm=readings.get('psalm'),
             epistle=readings.get('epistle'),
             gospel=readings.get('gospel'),
-            liturgical_season=EthiopianCalendarData.get_liturgical_season(eth_date['month'], eth_date['day']),
+            liturgical_season=liturgical_season,
             feast_info=feast_info,
             fasting_info=fasting_info,
-            liturgical_color=self._get_liturgical_color(feast_info, fasting_info),
+            liturgical_color=self._get_liturgical_color(date, feast_info, fasting_info, easter_info),
             saints_commemorations=[]
         )
     
@@ -267,13 +275,33 @@ class AmharicLiturgicalSystem:
         
         return english_ref
     
-    def _get_liturgical_color(self, feast_info: Optional[Dict[str, Any]], fasting_info: Dict[str, Any]) -> str:
-        """Get liturgical color for the day"""
-        
+    def _get_liturgical_color(self, date: datetime.date, feast_info: Optional[Dict[str, Any]], fasting_info: Dict[str, Any], easter_info: Optional[Dict[str, Any]] = None) -> str:
+        """Get liturgical color for the day with Easter season awareness"""
+
+        # Easter season colors (highest priority)
+        if easter_info:
+            ethiopian_easter = easter_info.get('ethiopian_easter')
+            if ethiopian_easter:
+                # Great Lent
+                nenewe_start = ethiopian_easter - datetime.timedelta(days=69)
+                abiy_tsome_start = nenewe_start + datetime.timedelta(days=14)
+                if abiy_tsome_start <= date < ethiopian_easter:
+                    return "purple"  # ወይን ጠጅ - Lent
+
+                # Easter Season
+                easter_end = ethiopian_easter + datetime.timedelta(days=49)
+                if ethiopian_easter <= date <= easter_end:
+                    return "white"  # ነጭ - Easter season
+
+        # Major feast colors
         if feast_info and feast_info['type'] == 'major':
             return "white"  # ነጭ - Major feasts
+
+        # Fasting colors
         elif fasting_info['is_fasting']:
             return "purple"  # ወይን ጠጅ - Fasting periods
+
+        # Ordinary time
         else:
             return "green"  # አረንጓዴ - Ordinary time
     
