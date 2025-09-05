@@ -1,60 +1,24 @@
-# Core dependencies
+# Local processing only
 sentence-transformers==2.7.0
-transformers==4.35.0
 torch>=2.0.0
 numpy==1.24.3
 pandas==2.0.3
 
-# LLM API clients
-anthropic==0.25.0
-google-generativeai==0.3.0
-openai==1.3.0  # For DeepSeek API compatibility
-
-# Vector databases
-chromadb==0.4.15
-qdrant-client==1.6.0
-
-# Text processing
-nltk==3.8.1
-spacy==3.7.2
-beautifulsoup4==4.12.2
-lxml==4.9.3
-
-# PDF processing
-PyPDF2==3.0.1
-pdfplumber==0.10.0
-pymupdf==1.23.0
-
-# Amharic/Ethiopian language support
-ethiopic==0.1.0
-PyICU==2.11
+# Calendar calculations
+python-dateutil==2.9.0
+pytz==2024.1
+hijri-converter==2.2.4  # For calendar conversions
 
 # Web interface
 streamlit==1.28.0
-fastapi==0.104.0
-uvicorn==0.24.0
-
-# Utilities
-python-dotenv==1.0.0
-tqdm==4.66.0
-requests==2.31.0
-aiofiles==23.2.1
-httpx>=0.27.0
-
-# Data validation
-pydantic==2.4.0
-validators==0.22.0
-
-# Visualization (optional)
 plotly==5.17.0
-matplotlib==3.8.0
-seaborn==0.13.0
+
+# Data processing
+jsonlines==4.0.0
+python-dotenv==1.0.0
+
+# Ethiopian calendar support
+convertdate==2.4.0  # Includes Ethiopian calendar
 
 # Testing
 pytest==7.4.0
-pytest-asyncio==0.21.0
-
-# Development
-black==23.9.0
-flake8==6.1.0
-mypy==1.6.0

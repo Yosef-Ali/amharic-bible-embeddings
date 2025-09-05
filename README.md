@@ -1,168 +1,128 @@
-# Amharic Bible Embeddings Project
+# Ethiopian Liturgical Calendar & Readings Database
 
-🇪🇹 **Advanced semantic search for the Amharic Bible using Late Chunking and modern LLM enhancement**
+🗓️ **Comprehensive liturgical system supporting both Western Catholic and Eastern Orthodox (Ethiopian) traditions**
+
+## Why This Project is Valuable
+
+### 📚 **Real-World Utility**
+- **Daily liturgical planning** for priests and faithful
+- **Cross-tradition comparison** for theological study
+- **Semantic search** through readings by theme
+- **Ethiopian calendar integration** with fasting rules
+- **Local processing** (no API content filtering issues)
+
+### 🎯 **Target Users**
+- Ethiopian Orthodox clergy
+- Catholic priests serving Ethiopian communities
+- Theologians studying comparative liturgy
+- Faithful planning daily spiritual reading
+- Religious educators
+
+## Project Structure
+
+```
+liturgical-calendar-embeddings/
+├── data/
+│   ├── sample_liturgical_readings.json    # Template readings
+│   ├── western_lectionary/                # Roman Catholic readings
+│   ├── ethiopian_readings/                # Ethiopian Orthodox readings
+│   └── saints_calendar/                   # Saints and commemorations
+├── src/
+│   ├── calendar_calculator.py             # Date and season calculations
+│   ├── reading_processor.py               # Process liturgical texts
+│   └── ethiopian_calendar.py              # Ethiopian calendar logic
+├── scripts/
+│   ├── build_liturgical_db.py            # Build searchable database
+│   └── import_readings.py                # Import from various sources
+└── app.py                                 # Streamlit interface
+```
 
 ## Features
 
-- **Late Chunking**: Preserves biblical context across verses
-- **Modern LLM Integration**: Uses Claude 4, Gemini Pro 2.5, DeepSeek 3.1
-- **Amharic Optimization**: Handles Ge'ez script and morphological complexity
-- **Semantic Search**: Find relevant passages by meaning, not just keywords
-- **Web Interface**: Easy-to-use Streamlit application
+### 🌍 **Western Liturgical System**
+- **3-Year Cycle**: Years A, B, C with proper Gospel rotation
+- **Liturgical Seasons**: Advent, Christmas, Lent, Easter, Ordinary Time
+- **Daily Readings**: First Reading, Responsorial Psalm, Gospel
+- **Saint Commemorations**: Major and optional memorials
+- **Proper vs Common**: Feast-specific vs seasonal readings
+
+### ⛪ **Ethiopian Orthodox System** 
+- **Ethiopian Calendar**: 13-month system with proper date conversion
+- **Liturgical Seasons**: Aligned with Ethiopian Orthodox tradition
+- **Fasting Calendar**: Wednesday/Friday fasts, Great Lent, Advent fast
+- **Reading Cycle**: Old Testament, Epistle, Gospel structure  
+- **Saints' Days**: Ethiopian Orthodox saint commemorations
+- **Feast Integration**: Timkat, Meskel, Genna, etc.
+
+## Data Integration Points
+
+### 📖 **Reading Sources** (To Be Added)
+1. **Western**: 
+   - Roman Lectionary texts
+   - USCCB daily readings
+   - Liturgy of the Hours
+
+2. **Ethiopian Orthodox**:
+   - **Your OCR project**: Amharic biblical texts
+   - Ethiopian Orthodox lectionary
+   - Traditional feast day readings
+
+### 🔗 **Cross-References**
+- Parallel readings between traditions
+- Thematic connections across calendars  
+- Saint commemorations in both systems
+- Seasonal alignment analysis
 
 ## Quick Start
 
-### 1. Setup Environment
-
 ```bash
-cd /Users/mekdesyared/Embedding/amharic-bible-embeddings
+cd /Users/mekdesyared/Embedding/liturgical-calendar-embeddings
+
+# Setup
 python3 -m venv venv
 source venv/bin/activate
 pip install -r requirements.txt
-```
 
-### 2. Configure API Keys
+# Build database
+python scripts/build_liturgical_db.py
 
-```bash
-cp .env.example .env
-```
-
-Edit `.env` and add your API keys (at least one required):
-```
-# Choose one or more LLM providers:
-GEMINI_API_KEY=your_gemini_api_key_here
-DEEPSEEK_API_KEY=your_deepseek_api_key_here
-OPENROUTER_API_KEY=your_openrouter_api_key_here
-
-# Optional: Alternative providers
-ANTHROPIC_API_KEY=your_claude_api_key_here
-```
-
-**Recommended**: Use OpenRouter for access to multiple models including Claude 3
-
-### 3. Add Bible Data
-
-Place your Amharic Bible files in `data/raw/`:
-- Supported formats: `.txt`, `.json`, `.csv`
-- Can be organized by books/chapters or as complete text
-
-### 4. Process the Bible
-
-```bash
-python scripts/process_bible.py
-```
-
-This will:
-- Clean and normalize Amharic text
-- Apply Late Chunking with context preservation
-- Generate LLM-enhanced contextual information
-- Create high-quality embeddings
-- Save results for fast retrieval
-
-### 5. Start the Web Interface
-
-```bash
+# Launch interface
 streamlit run app.py
 ```
 
-Visit `http://localhost:8501` to use the search interface.
+## Search Capabilities
 
-## Architecture Overview
+### 🔍 **Semantic Search Examples**
+- **Thematic**: "forgiveness readings", "healing miracles"
+- **Seasonal**: "Advent prophecies", "Easter resurrection"
+- **Cross-tradition**: "Christmas readings both calendars"
+- **Saints**: "readings for Saint Mary", "Ethiopian martyrs"
+- **Practical**: "readings for wedding", "funeral liturgy"
 
-```
-📄 Raw Amharic Bible Text
-    ↓
-🧹 Amharic Text Cleaning (Ge'ez normalization, Fidel handling)
-    ↓  
-🤖 LLM Contextual Enhancement (Claude/Gemini/DeepSeek)
-    ↓
-📚 Semantic Chunking (Verse-level with context windows)
-    ↓
-⚡ Late Chunking Embedding (Context-preserving embeddings)
-    ↓
-💾 Vector Storage (ChromaDB/Qdrant)
-    ↓
-🔍 Semantic Search & Q&A Interface
-```
+### 📅 **Calendar Navigation**
+- Jump to any date in 2025
+- View liturgical season information
+- See fasting requirements (Ethiopian)
+- Compare traditions side-by-side
 
-## Key Components
+## Integration with Your OCR Project
 
-### Late Chunking Implementation
-- **File**: `src/chunking/late_chunking.py`
-- **Purpose**: Embeds entire chapters before chunking to preserve context
-- **Benefits**: Maintains cross-verse references and narrative flow
+This liturgical calendar system **perfectly complements** your prayer book OCR:
 
-### LLM Enhancement
-- **File**: `src/enhancement/llm_contextualizer.py`
-- **Purpose**: Uses modern LLMs to add theological and historical context
-- **Benefits**: Enriches embeddings with deeper biblical understanding
+1. **Prayers Database** ← Your OCR project
+2. **Liturgical Readings** ← This project
+3. **Combined Search** → Find prayers AND readings for any occasion
+4. **Complete Spiritual Resource** → Everything needed for Ethiopian Orthodox worship
 
-### Amharic Processing
-- **File**: `src/preprocessing/amharic_cleaner.py`
-- **Purpose**: Handles Amharic-specific text normalization
-- **Features**: Ge'ez numerals, Fidel variations, Unicode normalization
+## Data Schema Ready For:
 
-## Usage Examples
-
-### Search Examples
-
-**Amharic queries:**
-- "ፍቅር ስለ ኢየሱስ" (About Jesus' love)
-- "የመንግሥተ ሰማያት ምሳሌ" (Parables of the Kingdom of Heaven)
-
-**English queries:**
-- "Jesus healing the sick"
-- "Parables about forgiveness"
-
-### Python API Usage
-
-```python
-from src.chunking.late_chunking import late_chunking_embedder
-from src.enhancement.llm_contextualizer import llm_contextualizer
-
-# Process a chapter
-chapter_text = "Your Amharic Bible chapter text here"
-chunk_infos = [...] # Your chunk information
-
-# Generate Late Chunking embeddings
-results = late_chunking_embedder.embed_with_late_chunking(chapter_text, chunk_infos)
-
-# Enhance with LLM context
-enhanced = await llm_contextualizer.enhance_single_chunk(
-    text="አመነ፥ እና ተድኖ ይሆን",
-    enhancement_type="biblical_context"
-)
-```
-
-## Configuration
-
-Key settings in `.env`:
-
-- `CONTEXT_ENHANCEMENT_LLM`: Choose `claude`, `gemini`, or `deepseek`
-- `EMBEDDING_MODEL`: Default is `paraphrase-multilingual-mpnet-base-v2`
-- `ENABLE_THEOLOGICAL_CONTEXT`: Enable LLM enhancement (slower but better)
-- `CHUNK_SIZE`: Chunk size for processing (default: 512)
-
-## Performance Notes
-
-- **With LLM Enhancement**: Slower but higher quality context
-- **Without LLM Enhancement**: Faster processing, still good embeddings
-- **Late Chunking**: ~2x slower than traditional but much better context preservation
-
-## Troubleshooting
-
-1. **No API Key**: Set up at least one LLM API key in `.env`
-2. **Memory Issues**: Reduce `BATCH_SIZE` in settings
-3. **Slow Processing**: Disable `ENABLE_THEOLOGICAL_CONTEXT` for speed
-4. **Import Errors**: Ensure all requirements are installed
-
-## Next Steps
-
-1. Add your Amharic Bible data to `data/raw/`
-2. Configure your preferred LLM in `.env`
-3. Run the processing pipeline
-4. Start asking biblical questions!
+- **Authentic Amharic readings** from your OCR
+- **Proper liturgical translations**
+- **Ethiopian Orthodox lectionary**
+- **Cross-references between prayer books and biblical readings**
 
 ---
 
-*Built with Late Chunking, modern LLMs, and love for Ethiopian biblical scholarship* 🙏
+**This gives you a complete liturgical ecosystem: daily prayers + daily readings + calendar system, all locally processed without API restrictions!** 🙏
+
+Ready to build this comprehensive liturgical resource?

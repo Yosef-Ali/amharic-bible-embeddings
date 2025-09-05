@@ -1,0 +1,106 @@
+[
+  {
+    "date": "2025-01-07",
+    "western_calendar": {
+      "liturgical_year": "A", 
+      "season": "Christmas",
+      "week": "Christmas Octave",
+      "rank": "Feast",
+      "color": "White",
+      "first_reading": {
+        "reference": "1 John 3:22-4:6",
+        "text": "[Authentic reading text to be added]",
+        "theme": "God's love and discernment"
+      },
+      "responsorial_psalm": {
+        "reference": "Psalm 2:7-8, 10-11", 
+        "response": "I will give you the nations for an inheritance.",
+        "text": "[Psalm text to be added]"
+      },
+      "gospel": {
+        "reference": "Matthew 4:12-17, 23-25",
+        "text": "[Gospel text to be added]",
+        "theme": "Jesus begins public ministry"
+      },
+      "saints": ["Saint Raymond of Penyafort"],
+      "optional_memorial": true
+    },
+    "eastern_orthodox": {
+      "julian_date": "2024-12-25",
+      "ethiopian_date": "ታህሳስ 28, 2017 ዓ.ም.",
+      "season": "Christmas",
+      "fasting_status": "non_fasting",
+      "liturgical_rank": "Great Feast",
+      "old_testament": {
+        "reference": "Isaiah 7:10-16; 8:1-4, 8-10",
+        "amharic_text": "[Authentic Amharic OT reading - from OCR]",
+        "theme": "Prophecy of Emmanuel"
+      },
+      "epistle": {
+        "reference": "Hebrews 1:1-12", 
+        "amharic_text": "[Authentic Amharic Epistle - from OCR]",
+        "theme": "Christ's superiority"
+      },
+      "gospel": {
+        "reference": "Matthew 1:18-25",
+        "amharic_text": "[Authentic Amharic Gospel - from OCR]", 
+        "theme": "Birth of Jesus"
+      },
+      "saints": ["Saint Stephen the Protomartyr"],
+      "special_hymns": ["የዘወተር ዜማ"],
+      "liturgical_notes": "First day after Christmas"
+    }
+  },
+  {
+    "date": "2025-03-05",
+    "western_calendar": {
+      "liturgical_year": "A",
+      "season": "Lent", 
+      "week": "First Week of Lent",
+      "rank": "Weekday",
+      "color": "Purple",
+      "first_reading": {
+        "reference": "Leviticus 19:1-2, 11-18",
+        "text": "[Reading text]",
+        "theme": "Holiness and love of neighbor"
+      },
+      "responsorial_psalm": {
+        "reference": "Psalm 19:8-10, 15",
+        "response": "Your words, Lord, are Spirit and life.",
+        "text": "[Psalm text]"
+      },
+      "gospel": {
+        "reference": "Matthew 25:31-46",
+        "text": "[Gospel text]",
+        "theme": "Final judgment and works of mercy"
+      },
+      "saints": [],
+      "optional_memorial": false
+    },
+    "eastern_orthodox": {
+      "julian_date": "2025-02-20",
+      "ethiopian_date": "የካቲት 27, 2017 ዓ.ም.",
+      "season": "Great Lent",
+      "fasting_status": "strict_fasting",
+      "liturgical_rank": "Weekday",
+      "old_testament": {
+        "reference": "Genesis 1:14-23",
+        "amharic_text": "[Authentic Amharic OT - from OCR]",
+        "theme": "Fourth day of creation"
+      },
+      "epistle": {
+        "reference": "Hebrews 1:10-2:3",
+        "amharic_text": "[Authentic Amharic Epistle - from OCR]",
+        "theme": "Christ's eternal nature"
+      },
+      "gospel": {
+        "reference": "Mark 2:18-22",
+        "amharic_text": "[Authentic Amharic Gospel - from OCR]",
+        "theme": "Fasting and new wine"
+      },
+      "saints": ["Saint Leo of Catania"],
+      "fasting_rules": ["No animal products", "One meal after 3 PM"],
+      "liturgical_notes": "First week of Great Lent"
+    }
+  }
+]
