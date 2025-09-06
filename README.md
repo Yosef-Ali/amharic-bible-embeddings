@@ -16,9 +16,12 @@ A comprehensive system for Ethiopian Orthodox calendar, liturgical calculations,
 - **Scripture readings** integration
 - **Multi-tradition support**
 
-### 🔤 Amharic OCR (New!)
-- **Optical Character Recognition** for Amharic text
-- **Biblical document processing** specialization
+### 🔤 Amharic OCR & Document Scanner (New!)
+- **Complex book layout detection** (single/double page, multi-column)
+- **Non-sequential page processing** for scanned books
+- **Reading order preservation** across complex layouts
+- **OCR to embeddings pipeline** for text generation
+- **Batch processing** for entire books
 - **Fidel script recognition** framework
 - **Ethiopian numeral conversion**
 
@@ -64,13 +67,22 @@ eth_date = EthiopianCalendarData.gregorian_to_ethiopian_precise(today)
 print(f"Today: {eth_date['formatted']}")
 ```
 
-### Amharic OCR
+### Document Scanner & OCR Pipeline
 ```python
-from src.ocr.amharic_ocr import AmharicOCR
+from src.ocr.embedding_pipeline import EmbeddingPipeline
 
-ocr = AmharicOCR()
-result = ocr.extract_text_from_image('path/to/amharic_document.jpg')
-print(f"Extracted text: {result['processed_text']}")
+# Complete book processing pipeline
+pipeline = EmbeddingPipeline()
+result = pipeline.create_embeddings_from_book(
+    'book_images/',      # Directory with scanned pages
+    'output/'           # Output directory
+)
+
+# Process specific layout
+from src.ocr.document_scanner import DocumentScanner
+scanner = DocumentScanner()
+layout = scanner.detect_page_layout('complex_page.jpg')
+text_blocks = scanner.extract_text_blocks_ordered('complex_page.jpg')
 ```
 
 ### Liturgical Calendar
@@ -147,11 +159,14 @@ python scripts/test_calendar.py
 - **Biblical vocabulary** framework  
 - **No spell correction** - left for native speakers
 
-### Document Types
-- **Biblical manuscripts**
-- **Liturgical texts**
-- **Calendar documents**
-- **Religious inscriptions**
+### Document Processing Capabilities
+- **Complex book layouts** (single/double page spreads)
+- **Multi-column text** (2, 3, 4+ columns)
+- **Non-sequential pages** (mixed page ordering)
+- **Biblical manuscripts** and liturgical texts
+- **Reading order preservation** across complex layouts
+- **Batch processing** for entire books
+- **Embedding-ready output** for AI training
 
 ## 🎯 Use Cases
 
