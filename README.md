@@ -16,14 +16,14 @@ A comprehensive system for Ethiopian Orthodox calendar, liturgical calculations,
 - **Scripture readings** integration
 - **Multi-tradition support**
 
-### 🔤 Amharic OCR & Document Scanner (New!)
-- **Complex book layout detection** (single/double page, multi-column)
-- **Non-sequential page processing** for scanned books
-- **Reading order preservation** across complex layouts
-- **OCR to embeddings pipeline** for text generation
-- **Batch processing** for entire books
-- **Fidel script recognition** framework
-- **Ethiopian numeral conversion**
+### 📚 Complete Book Digitization System (New!)
+- **OCR to Embeddings** - Extract text for AI training
+- **PDF Recreation** - Recreate original layout with searchable text
+- **Complex layout handling** (single/double page, multi-column)
+- **Batch book processing** - Entire books in one pipeline
+- **Multiple output formats** (JSON, PDF, TXT, JSONL)
+- **Amharic font support** - Proper Ethiopian script rendering
+- **Reading order preservation** - Maintains document structure
 
 ### 🤖 AI Integration
 - **MCP server** for AI assistant access
@@ -67,22 +67,24 @@ eth_date = EthiopianCalendarData.gregorian_to_ethiopian_precise(today)
 print(f"Today: {eth_date['formatted']}")
 ```
 
-### Document Scanner & OCR Pipeline
+### Complete Book Digitization
 ```python
-from src.ocr.embedding_pipeline import EmbeddingPipeline
+from src.ocr.book_digitizer import BookDigitizer
 
-# Complete book processing pipeline
-pipeline = EmbeddingPipeline()
-result = pipeline.create_embeddings_from_book(
-    'book_images/',      # Directory with scanned pages
-    'output/'           # Output directory
+# Complete book digitization: OCR → Embeddings + PDF
+digitizer = BookDigitizer()
+result = digitizer.digitize_book(
+    'book_images/',           # Scanned book pages
+    'output/',               # Output directory  
+    'Ethiopian Bible'        # Book title
 )
 
-# Process specific layout
-from src.ocr.document_scanner import DocumentScanner
-scanner = DocumentScanner()
-layout = scanner.detect_page_layout('complex_page.jpg')
-text_blocks = scanner.extract_text_blocks_ordered('complex_page.jpg')
+# Output files:
+# - embeddings.json (AI training data)
+# - recreated.pdf (searchable PDF with original layout)
+# - text.txt (plain text)
+# - metadata.json (statistics)
+# - training.jsonl (ML format)
 ```
 
 ### Liturgical Calendar

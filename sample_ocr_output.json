@@ -1,0 +1,328 @@
+{
+  "book_scan_results": {
+    "total_pages": 1,
+    "successful_pages": 1,
+    "pages": [
+      {
+        "page_number": 1,
+        "filename": "ethiopian_calendar_2016.jpg",
+        "image_path": "ethiopian_calendar_2016.jpg",
+        "layout": {
+          "layout_type": "single_page_multi_section",
+          "is_double_page": false,
+          "dimensions": [864, 1200],
+          "columns": [
+            {"x": 0, "y": 0, "width": 864, "height": 400},
+            {"x": 0, "y": 400, "width": 864, "height": 800}
+          ]
+        },
+        "text_blocks": [
+          {
+            "block_id": "header_block_1",
+            "region": "header",
+            "bbox": {"x": 200, "y": 20, "width": 464, "height": 40},
+            "text": "ዓመተ ምሕረት 2016 Year of Incarnation",
+            "confidence": 0.95,
+            "text_density": 0.8,
+            "reading_order": 1
+          },
+          {
+            "block_id": "main_table_row_1",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 80, "width": 764, "height": 25},
+            "text": "ዓመተ ዓላም 7516 Year since Creation",
+            "confidence": 0.92,
+            "text_density": 0.7,
+            "reading_order": 2
+          },
+          {
+            "block_id": "main_table_row_2", 
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 105, "width": 764, "height": 25},
+            "text": "ዓመተ ሰማዕታት 1740 Year of Martyrs",
+            "confidence": 0.91,
+            "text_density": 0.7,
+            "reading_order": 3
+          },
+          {
+            "block_id": "main_table_row_3",
+            "region": "main_table", 
+            "bbox": {"x": 50, "y": 130, "width": 764, "height": 25},
+            "text": "ወንጌላዊ ዮሐንስ / John Evangelist",
+            "confidence": 0.89,
+            "text_density": 0.75,
+            "reading_order": 4
+          },
+          {
+            "block_id": "main_table_row_4",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 155, "width": 764, "height": 25}, 
+            "text": "ዘመን መስዋዕት ማክሰኞ / Tuesday New Year Day",
+            "confidence": 0.88,
+            "text_density": 0.73,
+            "reading_order": 5
+          },
+          {
+            "block_id": "main_table_row_5",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 180, "width": 764, "height": 25},
+            "text": "አበቅቴ 20 Lunar Epact",
+            "confidence": 0.93,
+            "text_density": 0.65,
+            "reading_order": 6
+          },
+          {
+            "block_id": "main_table_row_6",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 205, "width": 764, "height": 25},
+            "text": "መጥቅዕ ጥቅምት 10 / October 21 Alexandrian-Jewish New Year Day",
+            "confidence": 0.87,
+            "text_density": 0.78,
+            "reading_order": 7
+          },
+          {
+            "block_id": "main_table_row_7",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 230, "width": 764, "height": 25},
+            "text": "ጾመ ኒኒዌ የካቲት 18 / February 26 Fast of Nineveh",
+            "confidence": 0.86,
+            "text_density": 0.76,
+            "reading_order": 8
+          },
+          {
+            "block_id": "main_table_row_8",
+            "region": "main_table", 
+            "bbox": {"x": 50, "y": 255, "width": 764, "height": 25},
+            "text": "ዐቢይ ጾም መጋቢት 2 / March 11 Great Fast",
+            "confidence": 0.90,
+            "text_density": 0.72,
+            "reading_order": 9
+          },
+          {
+            "block_id": "main_table_row_9",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 280, "width": 764, "height": 25},
+            "text": "ደብረ ዘይት መጋቢት 29 / April 7 Mount of Olives",
+            "confidence": 0.89,
+            "text_density": 0.74,
+            "reading_order": 10
+          },
+          {
+            "block_id": "main_table_row_10",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 305, "width": 764, "height": 25},
+            "text": "ሆሣዕና ሚያዝያ 20 / April 28 Palm Sunday",
+            "confidence": 0.91,
+            "text_density": 0.71,
+            "reading_order": 11
+          },
+          {
+            "block_id": "main_table_row_11",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 330, "width": 764, "height": 25},
+            "text": "ፍሥሐ አረብ ሚያዝያ 20 / April 28 Nisan 14 (Alexandrian-Jewish calendar)",
+            "confidence": 0.85,
+            "text_density": 0.82,
+            "reading_order": 12
+          },
+          {
+            "block_id": "main_table_row_12",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 355, "width": 764, "height": 25},
+            "text": "ስቅለት ሚያዝያ 25 / May 3 Good Friday",
+            "confidence": 0.93,
+            "text_density": 0.69,
+            "reading_order": 13
+          },
+          {
+            "block_id": "main_table_row_13",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 380, "width": 764, "height": 25},
+            "text": "ትንሣኤ ሚያዝያ 27 / May 5 Easter / Gregorian: March 31",
+            "confidence": 0.87,
+            "text_density": 0.79,
+            "reading_order": 14
+          },
+          {
+            "block_id": "main_table_row_14",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 405, "width": 764, "height": 25},
+            "text": "ርእሰ ካህናት ግንቦት 21 / May 29 Priests' Assembly",
+            "confidence": 0.88,
+            "text_density": 0.73,
+            "reading_order": 15
+          },
+          {
+            "block_id": "main_table_row_15",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 430, "width": 764, "height": 25},
+            "text": "ዕርገት ሰኔ 6 / June 13 Ascension (Thursday)",
+            "confidence": 0.90,
+            "text_density": 0.70,
+            "reading_order": 16
+          },
+          {
+            "block_id": "main_table_row_16",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 455, "width": 764, "height": 25},
+            "text": "ዕረፍተ ሰቡሕ ሰኔ 16 / June 23 Pentecost",
+            "confidence": 0.91,
+            "text_density": 0.68,
+            "reading_order": 17
+          },
+          {
+            "block_id": "main_table_row_17",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 480, "width": 764, "height": 25},
+            "text": "ጾመ ሐዋርያት ሰኔ 17 / June 24 Fast of the Apostles",
+            "confidence": 0.89,
+            "text_density": 0.75,
+            "reading_order": 18
+          },
+          {
+            "block_id": "main_table_row_18",
+            "region": "main_table",
+            "bbox": {"x": 50, "y": 505, "width": 764, "height": 25},
+            "text": "ጾመ ድኅነት ሰኔ 19 / June 26 Fast of Salvation",
+            "confidence": 0.87,
+            "text_density": 0.72,
+            "reading_order": 19
+          },
+          {
+            "block_id": "public_holidays_header",
+            "region": "bottom_table",
+            "bbox": {"x": 200, "y": 580, "width": 464, "height": 30},
+            "text": "የሕዝብ በዓላት Public Holidays",
+            "confidence": 0.94,
+            "text_density": 0.76,
+            "reading_order": 20
+          },
+          {
+            "block_id": "public_holidays_row_1",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 650, "width": 764, "height": 25},
+            "text": "2016 መስከረም 1 ዘመን መስዋዕት New year 12 2023",
+            "confidence": 0.88,
+            "text_density": 0.71,
+            "reading_order": 21
+          },
+          {
+            "block_id": "public_holidays_row_2",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 695, "width": 764, "height": 25},
+            "text": "15(16) መውሊድ Prophet's Birth (1445) 26(27) September",
+            "confidence": 0.86,
+            "text_density": 0.74,
+            "reading_order": 22
+          },
+          {
+            "block_id": "public_holidays_row_3",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 720, "width": 764, "height": 25},
+            "text": "17 መስቀል Holy Cross 28",
+            "confidence": 0.92,
+            "text_density": 0.65,
+            "reading_order": 23
+          },
+          {
+            "block_id": "public_holidays_row_4",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 770, "width": 764, "height": 25},
+            "text": "ታኅሣሥ 28 ልደት Christmas 7 2024 January",
+            "confidence": 0.89,
+            "text_density": 0.69,
+            "reading_order": 24
+          },
+          {
+            "block_id": "public_holidays_row_5",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 795, "width": 764, "height": 25},
+            "text": "ጥር 11 ጥምቀት Baptism 20",
+            "confidence": 0.91,
+            "text_density": 0.67,
+            "reading_order": 25
+          },
+          {
+            "block_id": "public_holidays_row_6",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 820, "width": 764, "height": 25},
+            "text": "የካቲት 23 አድዋ Adwa 2 March",
+            "confidence": 0.90,
+            "text_density": 0.66,
+            "reading_order": 26
+          },
+          {
+            "block_id": "public_holidays_row_7",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 845, "width": 764, "height": 25},
+            "text": "1(2) ረመዳን Ramadan (1445) 9(10) April",
+            "confidence": 0.84,
+            "text_density": 0.73,
+            "reading_order": 27
+          },
+          {
+            "block_id": "public_holidays_row_8",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 870, "width": 764, "height": 25},
+            "text": "23 ሠራተኞች Labour day 1",
+            "confidence": 0.93,
+            "text_density": 0.64,
+            "reading_order": 28
+          },
+          {
+            "block_id": "public_holidays_row_9",
+            "region": "bottom_table", 
+            "bbox": {"x": 50, "y": 920, "width": 764, "height": 25},
+            "text": "ሚያዝያ 25 ዓርባ ስቅለት Good Friday 3",
+            "confidence": 0.88,
+            "text_density": 0.70,
+            "reading_order": 29
+          },
+          {
+            "block_id": "public_holidays_row_10",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 945, "width": 764, "height": 25},
+            "text": "27 ትንሣኤ Easter 5 May",
+            "confidence": 0.91,
+            "text_density": 0.63,
+            "reading_order": 30
+          },
+          {
+            "block_id": "public_holidays_row_11",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 970, "width": 764, "height": 25},
+            "text": "27 አርበኞች Patriots 5",
+            "confidence": 0.89,
+            "text_density": 0.62,
+            "reading_order": 31
+          },
+          {
+            "block_id": "public_holidays_row_12",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 1020, "width": 764, "height": 25},
+            "text": "ግንቦት 20 ደርግ የወደቁበት Derg's fall 28",
+            "confidence": 0.85,
+            "text_density": 0.75,
+            "reading_order": 32
+          },
+          {
+            "block_id": "public_holidays_row_13",
+            "region": "bottom_table",
+            "bbox": {"x": 50, "y": 1045, "width": 764, "height": 25},
+            "text": "ሰኔ 9(10) አረፋ Arafa (1445) 16(17) June",
+            "confidence": 0.87,
+            "text_density": 0.72,
+            "reading_order": 33
+          }
+        ]
+      }
+    ]
+  },
+  "metadata": {
+    "source_directory": "sample_images",
+    "image_files_processed": 1,
+    "layout_types": {
+      "single_page_multi_section": 1
+    }
+  }
+}
