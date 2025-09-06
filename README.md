@@ -17,13 +17,15 @@ A comprehensive system for Ethiopian Orthodox calendar, liturgical calculations,
 - **Multi-tradition support**
 
 ### 📚 Complete Book Digitization System (New!)
-- **OCR to Embeddings** - Extract text for AI training
+- **TOC Analysis FIRST** - Understands book structure before processing
+- **OCR to Embeddings** - Extract text for AI training with chapter context
 - **PDF Recreation** - Recreate original layout with searchable text
-- **Complex layout handling** (single/double page, multi-column)
+- **Multi-page book handling** - Complex religious texts (Catechism, Bible, etc.)
+- **Chapter-aware embeddings** - Each chunk includes structural context
+- **Complex layout detection** (single/double page, multi-column)
 - **Batch book processing** - Entire books in one pipeline
 - **Multiple output formats** (JSON, PDF, TXT, JSONL)
 - **Amharic font support** - Proper Ethiopian script rendering
-- **Reading order preservation** - Maintains document structure
 
 ### 🤖 AI Integration
 - **MCP server** for AI assistant access
@@ -67,24 +69,30 @@ eth_date = EthiopianCalendarData.gregorian_to_ethiopian_precise(today)
 print(f"Today: {eth_date['formatted']}")
 ```
 
-### Complete Book Digitization
+### Complete Book Digitization with TOC Analysis
 ```python
 from src.ocr.book_digitizer import BookDigitizer
 
-# Complete book digitization: OCR → Embeddings + PDF
+# Complete book digitization: TOC → OCR → Embeddings + PDF
 digitizer = BookDigitizer()
 result = digitizer.digitize_book(
-    'book_images/',           # Scanned book pages
+    'book_images/',           # Scanned book pages (.tif, .jpg, .png)
     'output/',               # Output directory  
     'Ethiopian Bible'        # Book title
 )
 
+# Process:
+# Step 0: TOC analysis (detects chapters FIRST)
+# Step 1: OCR with chapter context
+# Step 2: Contextual embeddings
+# Step 3: Searchable PDF recreation
+
 # Output files:
-# - embeddings.json (AI training data)
+# - embeddings.json (AI training data with chapter context)
 # - recreated.pdf (searchable PDF with original layout)
-# - text.txt (plain text)
-# - metadata.json (statistics)
-# - training.jsonl (ML format)
+# - text.txt (plain text with structure)
+# - metadata.json (TOC structure + statistics)
+# - training.jsonl (ML format with context)
 ```
 
 ### Liturgical Calendar
@@ -172,11 +180,13 @@ python scripts/test_calendar.py
 
 ## 🎯 Use Cases
 
-- **Ethiopian Orthodox Churches** - Liturgical planning
-- **Religious scholars** - Calendar research  
+- **Book Digitization** - Convert scanned religious books to AI training data
+- **Ethiopian Orthodox Churches** - Liturgical planning and digital archives
+- **Religious scholars** - Calendar research and text analysis
+- **Digital humanities** - Amharic manuscript digitization
+- **AI/ML researchers** - Ethiopian religious text datasets
 - **Software developers** - Ethiopian calendar integration
-- **Digital humanities** - Amharic text digitization
-- **AI systems** - Ethiopian religious knowledge
+- **Publishers** - Searchable digital book creation
 
 ## 📞 Support
 
