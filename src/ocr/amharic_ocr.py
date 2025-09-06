@@ -188,8 +188,9 @@ class AmharicOCR:
     
     def post_process_text(self, raw_text: str) -> str:
         """
-        Post-process extracted text for better accuracy
-        Apply spell correction and context awareness
+        Basic post-processing of extracted text
+        Only handles formatting and numeral conversion
+        Spell correction left for native speakers
         """
         
         # Remove extra whitespace
@@ -199,58 +200,15 @@ class AmharicOCR:
         for eth_num, arab_num in self.ETHIOPIAN_NUMERALS.items():
             cleaned_text = cleaned_text.replace(eth_num, arab_num)
         
-        # Basic spell correction using biblical word dictionary
-        words = cleaned_text.split()
-        corrected_words = []
+        # NOTE: Spell correction intentionally omitted
+        # Amharic biblical text requires native speaker knowledge
+        # LLMs don't fully understand Amharic religious vocabulary
         
-        for word in words:
-            if len(word) >= self.min_word_length:
-                # Check if word exists in biblical vocabulary
-                best_match = self.find_closest_word(word)
-                corrected_words.append(best_match if best_match else word)
-            else:
-                corrected_words.append(word)
-        
-        return ' '.join(corrected_words)
+        return cleaned_text
     
-    def find_closest_word(self, word: str) -> Optional[str]:
-        """
-        Find closest word in biblical vocabulary using simple distance
-        """
-        
-        min_distance = float('inf')
-        closest_word = None
-        
-        for biblical_word in self.BIBLICAL_WORDS:
-            # Simple character-based distance
-            distance = self.calculate_edit_distance(word, biblical_word)
-            if distance < min_distance and distance <= len(word) * 0.3:  # 30% error tolerance
-                min_distance = distance
-                closest_word = biblical_word
-        
-        return closest_word
-    
-    def calculate_edit_distance(self, str1: str, str2: str) -> int:
-        """
-        Calculate edit distance between two strings
-        """
-        
-        m, n = len(str1), len(str2)
-        dp = [[0] * (n + 1) for _ in range(m + 1)]
-        
-        for i in range(m + 1):
-            dp[i][0] = i
-        for j in range(n + 1):
-            dp[0][j] = j
-        
-        for i in range(1, m + 1):
-            for j in range(1, n + 1):
-                if str1[i-1] == str2[j-1]:
-                    dp[i][j] = dp[i-1][j-1]
-                else:
-                    dp[i][j] = 1 + min(dp[i-1][j], dp[i][j-1], dp[i-1][j-1])
-        
-        return dp[m][n]
+    # Spell correction methods removed - left for native speakers
+    # Amharic biblical vocabulary requires deep cultural and religious knowledge
+    # that current LLMs cannot adequately handle
     
     def extract_text_from_image(self, image_path: str) -> Dict[str, Any]:
         """

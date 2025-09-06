@@ -144,8 +144,8 @@ python scripts/test_calendar.py
 ### Character Recognition
 - **Complete Fidel script** (330+ characters)
 - **Ethiopian numerals** (፩፪፫፬፭...)
-- **Biblical vocabulary** optimization
-- **Context-aware** spell correction
+- **Biblical vocabulary** framework  
+- **No spell correction** - left for native speakers
 
 ### Document Types
 - **Biblical manuscripts**
