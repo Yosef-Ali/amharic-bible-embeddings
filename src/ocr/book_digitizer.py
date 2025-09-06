@@ -70,7 +70,7 @@ class BookDigitizer:
     
     def digitize_book(self, image_dir: str, output_dir: str, book_title: str = "Amharic Book") -> Dict[str, Any]:
         """
-        Complete book digitization pipeline
+        Complete book digitization pipeline with TOC analysis
         Input: Directory of scanned book images
         Output: Embeddings data + Recreated PDF + Text files
         """
@@ -81,13 +81,17 @@ class BookDigitizer:
         print(f"📚 Digitizing Book: {book_title}")
         print("=" * 60)
         
-        # Step 1: OCR Processing
-        print("🔍 Step 1: OCR Text Extraction...")
-        ocr_results = self._extract_text_from_images(image_dir, output_dir)
+        # Step 0: TOC Analysis (MUST BE FIRST)
+        print("📋 Step 0: Analyzing Table of Contents...")
+        book_structure = self._analyze_book_structure(image_dir)
         
-        # Step 2: Generate Embeddings Data
+        # Step 1: OCR Processing (with TOC guidance)
+        print("🔍 Step 1: OCR Text Extraction...")
+        ocr_results = self._extract_text_from_images(image_dir, output_dir, book_structure)
+        
+        # Step 2: Generate Embeddings Data (with book structure)
         print("📝 Step 2: Preparing Embedding Data...")
-        embedding_data = self._create_embedding_data(ocr_results, book_title)
+        embedding_data = self._create_embedding_data(ocr_results, book_title, book_structure)
         
         # Step 3: Create Searchable PDF
         print("📄 Step 3: Creating PDF with Original Layout...")
@@ -100,12 +104,16 @@ class BookDigitizer:
         result = {
             "book_title": book_title,
             "digitization_complete": True,
+            "book_structure": book_structure,
             "output_files": output_files,
             "statistics": {
                 "pages_processed": len(ocr_results.get("pages", [])),
                 "total_text_blocks": sum(len(p.get("text_blocks", [])) for p in ocr_results.get("pages", [])),
                 "total_chunks": len(embedding_data.get("chunks", [])),
-                "formats_created": len(output_files)
+                "formats_created": len(output_files),
+                "toc_detected": book_structure.get("has_toc", False),
+                "chapters_found": len(book_structure.get("chapters", [])),
+                "estimated_total_pages": book_structure.get("estimated_total_pages", 0)
             }
         }
         
@@ -114,9 +122,60 @@ class BookDigitizer:
         
         return result
     
-    def _extract_text_from_images(self, image_dir: str, output_dir: Path) -> Dict[str, Any]:
+    def _analyze_book_structure(self, image_dir: str) -> Dict[str, Any]:
+        """
+        Analyze book structure using TOC detection
+        MUST be called FIRST before any other processing
+        """
+        
+        from .toc_analyzer import TOCAnalyzer
+        
+        # Get all image files
+        image_dir = Path(image_dir)
+        image_extensions = ['.jpg', '.jpeg', '.png', '.tiff', '.bmp']
+        image_files = []
+        
+        for ext in image_extensions:
+            image_files.extend(image_dir.glob(f'*{ext}'))
+            image_files.extend(image_dir.glob(f'*{ext.upper()}'))
+        
+        image_files.sort(key=lambda x: self._natural_sort_key(x.name))
+        image_file_paths = [str(f) for f in image_files]
+        
+        # Initialize TOC analyzer
+        toc_analyzer = TOCAnalyzer()
+        
+        # Step 1: Detect TOC pages
+        toc_pages = toc_analyzer.detect_toc_pages(image_file_paths)
+        
+        # Step 2: Extract TOC structure
+        if toc_pages:
+            book_structure = toc_analyzer.extract_toc_structure(toc_pages)
+        else:
+            print("  ⚠️  No TOC detected - using sequential page processing")
+            book_structure = {
+                "has_toc": False,
+                "toc_pages": [],
+                "entries": [],
+                "chapters": [],
+                "sections": [],
+                "estimated_total_pages": len(image_files)
+            }
+        
+        # Step 3: Validate structure
+        validation = toc_analyzer.validate_toc_structure(book_structure, len(image_files))
+        book_structure["validation"] = validation
+        
+        # Step 4: Add image file info
+        book_structure["total_image_files"] = len(image_files)
+        book_structure["image_files"] = image_file_paths
+        
+        return book_structure
+    
+    def _extract_text_from_images(self, image_dir: str, output_dir: Path, book_structure: Dict[str, Any]) -> Dict[str, Any]:
         """
         Extract text from all book images using document scanner
+        Now enhanced with TOC structure awareness
         """
         
         from .document_scanner import DocumentScanner
@@ -124,12 +183,23 @@ class BookDigitizer:
         scanner = DocumentScanner()
         ocr_output_file = output_dir / "book_ocr_raw.json"
         
+        # Process images with TOC guidance
+        if book_structure.get("has_toc", False):
+            print("  📋 Using TOC structure to guide processing...")
+            # Process in TOC-aware order
+            image_files = book_structure.get("image_files", [])
+        else:
+            print("  📄 Processing in sequential order...")
+        
         # Process all images in the directory
         ocr_data = scanner.process_book_batch(str(image_dir), str(ocr_output_file))
         
+        # Add TOC information to OCR data
+        ocr_data["book_structure"] = book_structure
+        
         return ocr_data
     
-    def _create_embedding_data(self, ocr_results: Dict[str, Any], book_title: str) -> Dict[str, Any]:
+    def _create_embedding_data(self, ocr_results: Dict[str, Any], book_title: str, book_structure: Dict[str, Any]) -> Dict[str, Any]:
         """
         Create embedding-ready data from OCR results
         """
@@ -149,7 +219,10 @@ class BookDigitizer:
         embedding_data["book_metadata"] = {
             "title": book_title,
             "digitization_date": datetime.now().isoformat(),
-            "format_version": "1.0"
+            "format_version": "1.0",
+            "has_toc": book_structure.get("has_toc", False),
+            "chapters": book_structure.get("chapters", []),
+            "estimated_pages": book_structure.get("estimated_total_pages", 0)
         }
         
         # Clean up temp file
@@ -340,6 +413,9 @@ class BookDigitizer:
         stats = result["statistics"]
         print(f"📚 Book: {result['book_title']}")
         print(f"📄 Pages processed: {stats['pages_processed']}")
+        print(f"📋 TOC detected: {'✅ Yes' if stats['toc_detected'] else '❌ No'}")
+        print(f"📖 Chapters found: {stats['chapters_found']}")
+        print(f"📑 Estimated total pages: {stats['estimated_total_pages']}")
         print(f"🔤 Text blocks extracted: {stats['total_text_blocks']}")
         print(f"📦 Embedding chunks: {stats['total_chunks']}")
         print(f"📁 Output formats: {stats['formats_created']}")
